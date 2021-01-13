@@ -1,6 +1,6 @@
 {
   "name": "hc-sr04-pi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "HC-SR04-Pi is a module for distance measurement with a Raspberry Pi via a HC-SR04 sensor.",
   "main": "dist/index.js",
   "scripts": {
