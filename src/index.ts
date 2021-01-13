@@ -41,7 +41,10 @@ export default class DistanceMeter {
         const endTick: number = tick;
         const timeBetweenTicks: number = (endTick >> 0) - (startTick >> 0);
 
-        const distance: number = (timeBetweenTicks / 2) * SPEED_OF_SOUND;
+        const measuredDistance: number = (timeBetweenTicks / 2) * SPEED_OF_SOUND;
+
+        const distance: number = measuredDistance > 500 || measuredDistance < 0 ? -1 : measuredDistance;
+
         resolve(distance);
 
         this.echo.removeListener('alert', echoListenerCallback);
