@@ -15,7 +15,19 @@ export default class DistanceMeter {
     this.trigger.digitalWrite(0);
   }
 
-  public getDistance(): Promise<number> {
+  public async getDistance(): Promise<number> {
+    const firstDistance: number = await this.readDistance();
+    const secondDistance: number = await this.readDistance();
+    const thirdDistance: number = await this.readDistance();
+
+    const totalDistance: number = firstDistance + secondDistance + thirdDistance
+      - Math.max(firstDistance, secondDistance, thirdDistance)
+      - Math.min(firstDistance, secondDistance, thirdDistance);
+
+    return totalDistance;
+  }
+
+  private readDistance(): Promise<number> {
     return new Promise((resolve: Function): void => {
       let startTick: number;
 
