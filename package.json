@@ -1,37 +1,35 @@
 {
-  "name": "typescript-template-repository",
-  "version": "0.0.0",
-  "description": "This is a template for TypeScript projects",
+  "name": "hc-sr04-pi",
+  "version": "0.0.1",
+  "description": "HC-SR04-Pi is a module for distance measurement with a Raspberry Pi via a HC-SR04 sensor.",
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "lint": "tslint --project .",
-    "start": "node dist/run.js",
-    "start:dev": "npm run build && npm run start",
-    "test": "c8 mocha dist/tests/*.js --timeout 15000 --exit",
-    "test:coverage": "npm run test:coverage-check && npm run test:coverage-report",
-    "test:coverage-check": "c8 check-coverage --lines 0 --functions 0 --branches 0",
-    "test:coverage-report": "c8 report"
+    "lint": "tslint --project ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SteffenKn/typescript-template-repository.git"
+    "url": "git+https://github.com/SteffenKn/HC-SR04-Pi.git"
   },
   "keywords": [
-    "typescript",
-    "template"
+    "hc-sr04",
+    "raspberry",
+    "pi",
+    "distance",
+    "distance measuring"
   ],
   "author": "Steffen Knaup",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SteffenKn/typescript-template-repository/issues"
+    "url": "https://github.com/SteffenKn/HC-SR04-Pi/issues"
   },
-  "homepage": "https://github.com/SteffenKn/typescript-template-repository#readme",
+  "homepage": "https://github.com/SteffenKn/HC-SR04-Pi#readme",
   "dependencies": {
     "cors": "2.8.5",
     "express": "4.17.1",
     "ip": "1.1.5",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "pigpio": "^3.3.0"
   },
   "devDependencies": {
     "@types/chai": "4.2.14",
