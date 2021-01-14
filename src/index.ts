@@ -8,6 +8,8 @@ export default class DistanceMeter {
   private trigger: Gpio;
   private echo: Gpio;
 
+  private currentMeasuringPromise: Promise<number>;
+
   constructor(triggerPin: number, echoPin: number) {
     this.trigger = new Gpio(triggerPin, {mode: Gpio.OUTPUT});
     this.echo = new Gpio(echoPin, {mode: Gpio.INPUT, alert: true});
@@ -15,16 +17,26 @@ export default class DistanceMeter {
     this.trigger.digitalWrite(0);
   }
 
-  public async getDistance(): Promise<number> {
-    const firstDistance: number = await this.readDistance();
-    const secondDistance: number = await this.readDistance();
-    const thirdDistance: number = await this.readDistance();
+  public getDistance(): Promise<number> {
+    if (this.currentMeasuringPromise) {
+      return this.currentMeasuringPromise;
+    }
 
-    const totalDistance: number = firstDistance + secondDistance + thirdDistance
-      - Math.max(firstDistance, secondDistance, thirdDistance)
-      - Math.min(firstDistance, secondDistance, thirdDistance);
+    this.currentMeasuringPromise = new Promise(async(resolve: Function): Promise<void> => {
+        const firstDistance: number = await this.readDistance();
+        const secondDistance: number = await this.readDistance();
+        const thirdDistance: number = await this.readDistance();
 
-    return totalDistance;
+        const totalDistance: number = firstDistance + secondDistance + thirdDistance
+          - Math.max(firstDistance, secondDistance, thirdDistance)
+          - Math.min(firstDistance, secondDistance, thirdDistance);
+
+        this.currentMeasuringPromise = undefined;
+
+        resolve(totalDistance);
+      });
+
+    return this.currentMeasuringPromise;
   }
 
   private readDistance(): Promise<number> {
