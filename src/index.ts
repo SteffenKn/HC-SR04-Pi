@@ -24,7 +24,9 @@ export default class DistanceMeter {
 
     this.currentMeasuringPromise = new Promise(async(resolve: Function): Promise<void> => {
         const firstDistance: number = await this.readDistance();
+        this.wait(50);
         const secondDistance: number = await this.readDistance();
+        this.wait(50);
         const thirdDistance: number = await this.readDistance();
 
         const totalDistance: number = firstDistance + secondDistance + thirdDistance
@@ -65,6 +67,12 @@ export default class DistanceMeter {
       this.echo.on('alert', echoListenerCallback);
 
       this.trigger.trigger(10, 1);
+    });
+  }
+
+  private wait(ms: number): Promise<void> {
+    return new Promise((resolve: Function): void => {
+      setTimeout(resolve, ms);
     });
   }
 }
