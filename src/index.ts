@@ -24,9 +24,9 @@ export default class DistanceMeter {
 
     this.currentMeasuringPromise = new Promise(async(resolve: Function): Promise<void> => {
         const firstDistance: number = await this.readDistance();
-        this.wait(50);
+        this.wait(150);
         const secondDistance: number = await this.readDistance();
-        this.wait(50);
+        this.wait(150);
         const thirdDistance: number = await this.readDistance();
 
         const totalDistance: number = firstDistance + secondDistance + thirdDistance
